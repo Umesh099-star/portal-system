@@ -1,0 +1,148 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h3 {
+    text-align: center;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Navbar */
+header {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+nav ui {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+nav ui li {
+    margin: 0 15px;
+}
+
+nav ui li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Banner Section */
+.banner {
+    background-color: purple;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.banner marquee {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+    direction: left;
+    behavior: scroll;
+}
+
+
+
+/* Dashboard Cards */
+.dashboard {
+    padding: 20px;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+}
+
+.card.orange {
+    background: #FFA500;
+    color: white;
+}
+
+.card button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+/* Job Listings */
+.jobs {
+    padding: 20px;
+    text-align: center;
+}
+
+.jobs table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+.jobs th, .jobs td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Additional Info */
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.box {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+}
+
+.inactive {
+    background: #ddd;
+    color: gray;
+}
+
+/* Features & Support */
+.features, .support {
+    text-align: center;
+    padding: 20px;
+}
+
+.features ul {
+    list-style-type: none;
+}
+
+.support p {
+    font-weight: bold;
+}
