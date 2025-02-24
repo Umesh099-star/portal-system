@@ -1,0 +1,128 @@
+/* Import Google Fonts */
+/* @import url("https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700,900|Muli:300,400,500,600,700,800,900&display=swap"); */
+
+/* Background Colors */
+.white-bg { background: white; }
+.gray-bg { background: lightgray; }
+.black-bg { background: black; }
+.theme-bg { background: pink; }
+.brand-bg { background: lightblue; }
+.testimonial-bg { background: yellow; }
+
+/* Text Colors */
+.white-color { color: white; }
+.black-color { color: black; }
+.theme-color { color: pink; }
+
+/* Button Styles */
+.boxed-btn {
+    background: white;
+    color: pink !important;
+    display: inline-block;
+    padding: 18px 44px;
+    font-family: "Muli", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid pink;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.boxed-btn:hover {
+    background: pink;
+    color: white !important;
+}
+
+/* Overlay Styles */
+[data-overlay] {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+[data-overlay]::before {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    content: "";
+    background: black;
+}
+
+/* Body and Headings */
+body {
+    font-family: "Muli", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Muli", sans-serif;
+    color: navy;
+    font-weight: 500;
+}
+p {
+    font-family: "Muli", sans-serif;
+    color: gray;
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
+/* Image Styles */
+.img {
+    max-width: 100%;
+    transition: all .3s ease-out 0s;
+}
+
+/* Link and Button Styles */
+a, .button {
+    transition: all .3s ease-out 0s;
+    color: darkgray;
+}
+a:hover { color: white; }
+
+/* Text Transformations */
+.uppercase { text-transform: uppercase; }
+.capitalize { text-transform: capitalize; }
+
+/* Separator */
+hr {
+    border-bottom: 1px solid lightgray;
+}
+
+/* Overlay Styles */
+.theme-overlay {
+    position: relative;
+}
+.theme-overlay::before {
+    background: blue;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Padding and Margin Utilities */
+.section-padding { padding-top: 120px; padding-bottom: 120px; }
+.mb-90 { margin-bottom: 90px; }
+
+/* Button Styles */
+.btn {
+    background: pink;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 27px 44px;
+    border-radius: 5px;
+    position: relative;
+    border: 0;
+}
+.btn:hover {
+    background: darkred;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 767px) {
+    .slider-height { min-height: 550px; }
+}

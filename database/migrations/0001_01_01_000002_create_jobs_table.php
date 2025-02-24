@@ -11,16 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobs', function (Blueprint $table) {
-            $table->id();
-            $table->string('queue')->index();
-            $table->longText('payload');
-            $table->unsignedTinyInteger('attempts');
-            $table->unsignedInteger('reserved_at')->nullable();
-            $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
-        });
+        
 
+    Schema::create('jobs', function (Blueprint $table) {
+        $table->id();
+        $table->string('title');
+        $table->string('category');
+        $table->string('job_type'); // Full-time, Part-time, etc.
+        $table->integer('vacancy');
+        $table->decimal('salary', 10, 2)->nullable();
+        $table->string('location');
+        $table->text('description'); // Job Description
+        $table->text('qualifications');
+        $table->string('experience');
+        $table->timestamps();
+ 
+
+        });
+    
         Schema::create('job_batches', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');

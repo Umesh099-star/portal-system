@@ -1,15 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Dashboard</title>
+   
+
     <!-- <link rel="stylesheet" href="company.css"> -->
     <link rel="stylesheet" href="{{ asset('css/company.css') }}">
-
+    
 </head>
 <body>
     <h3>Company Dashboard</h3>
+    <!-- <li><a href="{{ route('company.jobs.create') }}">Create Job</a></li> -->
 
     <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -26,7 +30,8 @@
                         <ui>
                             <li><a href='#'>dashboard</a></li>
                             <li><a href='#'>profile</a></li>
-                            <li><a href='#'>create job</a></li>
+                            <li><a href="{{ route('company.jobs.create') }}">Create Job</a></li>
+                            <li><a href="{{ route('company.jobs.save') }}">View</a></li>
                             <li><a href='#'>setting</a></li>
                         </ui>
                     </nav>

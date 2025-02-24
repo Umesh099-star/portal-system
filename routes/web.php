@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\auth\AuthenticatedSessionController;
-
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\aplicantcontroller;
 
 use App\Http\Controllers\company\Auth\CompanyRegController;
 use App\Models\Company;
@@ -53,6 +54,21 @@ require __DIR__.'/admin-auth.php';
                     ->name('company.dashboard'); // Ensure this name matches the redirection
             });
             
+                // for company crud operations
+                Route::prefix('company')->middleware(['auth', 'company'])->group(function () {
+Route::get('/jobs/create', [JobController::class, 'create'])->name('company.jobs.create');
+ Route::post('/jobs/store', [JobController::class, 'store'])->name('company.jobs.store');
+Route::get('/jobs/save', [JobController::class, 'save'])->name('company.jobs.save');
+Route::get('/jobs/edit/{id}', [JobController::class, 'edit'])->name('company.jobs.edit');
+Route::post('/jobs/update/{id}', [JobController::class, 'update'])->name('company.jobs.update');
+Route::delete('/jobs/delete/{id}', [JobController::class, 'destroy'])->name('company.jobs.delete');
+
+                });
+
+
+
+
+
                     // For Admins 
                    
 
@@ -65,3 +81,18 @@ require __DIR__.'/admin-auth.php';
 //         return view('admin.dashboard');
 //     })->middleware('auth:admin');
 // });
+
+Route::get('/apply/{id}', [aplicantcontroller::class, 'showApplyForm'])
+->name('job.apply');
+
+Route::post('/apply/{id}', [aplicantcontroller::class, 'submitApplication'])
+->name('job.submit');
+
+Route::get('/company/job/{id}/applicants', [CompanyController::class, 'viewApplicants'])
+->name('company.viewApplicants');
+
+
+
+Route::get('/dashboard', [JobController::class, 'jobList'])
+->name('dashboard');
+

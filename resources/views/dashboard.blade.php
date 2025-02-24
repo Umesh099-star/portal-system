@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>job-seeker</title>
 </head>
 <body>
-    <h3>User Dashboard</h3>
-    <!-- <a href="{{route('logout')}}">logout</a> -->
+    <header>
 
-    <form method="POST" action="{{ route('logout') }}">
+   
+<form method="POST" action="{{ route('logout') }}">
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
@@ -18,7 +18,20 @@
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
-              
+                </header>
+                <h2>Available Jobs</h2>
 
+@if($jobs->isNotEmpty()) <!-- Check if there are any jobs -->
+    @foreach ($jobs as $job)
+        <div class="job-listing">
+            <h3>{{ $job->title }}</h3>
+            <p>{{ $job->description }}</p>
+            <p><strong>Location:</strong> {{ $job->location }}</p>
+            <a href="{{ route('job.apply', $job->id) }}" class="btn btn-primary">Apply Now</a>
+        </div>
+    @endforeach
+@else
+    <p>No jobs available at the moment.</p>
+@endif
 </body>
 </html>
