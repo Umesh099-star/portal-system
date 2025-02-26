@@ -1,0 +1,24 @@
+.topnav {
+    background-color: green;
+    overflow: hidden;
+}
+/* style of the nav */
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+/* color cahnge of the links that hover */
+.topnav a:hover {
+    background-color: blue;
+    color: white;
+}
+/* creaate split navbar */
+.topnav a.split {
+    float: right;
+    background-color: green;
+    color: white;
+}

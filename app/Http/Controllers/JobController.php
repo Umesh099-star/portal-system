@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Job;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
@@ -34,11 +35,15 @@ class JobController extends Controller
 // to delete the data from db
 public function destroy($id)
 {
-    $job = Job::findOrFail($id); // get job data by ID
-    $job->delete(); // Delete the job using same id
+    $job = Job::findOrFail($id);
+    if (auth()->user()->id != $job->company_id && Auth::guard('admin')->user()->usertype != 'admin') {
+        return redirect()->back()->with('error', 'Unauthorized action.');
+    }
 
-    return redirect()->route('company.jobs.save')->with('success', 'Job deleted successfully!');
+    $job->delete();
+    return redirect()->back()->with('success', 'Job deleted successfully.');
 }
+
 
 // to list the data in user Dashboard
 public function jobList()
@@ -48,47 +53,60 @@ public function jobList()
 }
 
 // stores all the info from company into db
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required',
-            'category' => 'required',
-            'job_type' => 'required',
-            'vacancy' => 'required|integer|min:1',
-            'salary' => 'nullable|numeric',
-            'location' => 'required',
-            'description' => 'required',
-            'qualifications' => 'required',
-            'experience' => 'required',
-        ]);
-        $job = Job::create($request->all());
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'category' => 'required|string',
+        'job_type' => 'required|string',
+        'vacancy' => 'required|integer',
+        'salary' => 'required|string',
+        'location' => 'required|string',
+        'description' => 'required|string',
+        'qualifications' => 'nullable|string',
+        'experience' => 'nullable|string',
+    ]);
 
-    // Redirect to the 'save' route after saving
-    return redirect()->route('company.jobs.save')->with('success', 'Job created successfully!');
-        //  Job::create($request->all());
+    $user = auth()->user();
     
-        // return redirect()->route('company.jobs.save')}
+    $job = new Job($request->all());
+     if ($user->usertype == 'admin') {
+        $job->added_by = 'admin';
+        $job->reference_id = 'ADM' . time(); // Unique Admin Reference ID
+        $job->company_id = $request->company_id; // Associate with existing company
+    } else {
+        $job->added_by = 'company';
+        $job->reference_id = 'CMP' . time(); // Unique Company Reference ID
+        $job->company_id = $user->id; // Company ID from authentication
     }
+
+    $job->save();
+    return redirect()->back()->with('success', 'Job created successfully.');
+}
+
 
     // update or rdit the data in the db
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required',
-            'category' => 'required',
-            'job_type' => 'required',
-            'vacancy' => 'required|integer|min:1',
-            'salary' => 'nullable|numeric',
-            'location' => 'required',
-            'description' => 'required',
-            'qualifications' => 'required',
-            'experience' => 'required',
-        ]);
-    
         $job = Job::findOrFail($id);
-        $job->update($request->all());
+        if (auth()->user()->id != $job->company_id && auth()->user()->role != 'admin') {
+            return redirect()->back()->with('error', 'Unauthorized action.');
+        }
     
-         return redirect()->route('company.jobs.save')->with('success', 'Job updated successfully.');
+        $job->update($request->all());
+        return redirect()->back()->with('success', 'Job updated successfully.');
     }
     
+ 
+    // admin listing control view in job-sekkers
+    public function jobSeekerDashboard()
+{
+    $jobs = Job::orderByRaw("CASE WHEN admin_id IS NOT NULL THEN 1 ELSE 2 END")
+               ->orderBy('created_at', 'desc')
+               ->get();
+
+    return view('dashboard', compact('jobs')); // Using default dashboard.blade.php
+}
+
+
 }

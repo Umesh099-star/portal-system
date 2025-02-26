@@ -1,14 +1,18 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant received</title>
+</head>
+<body>
+@foreach($applications as $application)
+    <div class="application">
+        <h3>Applied Job: {{ $application->job->title }}</h3>
+        <p><strong>Applicant:</strong> {{ $application->jobSeeker->name }}</p>
+        <p><strong>Email:</strong> {{ $application->jobSeeker->email }}</p>
+    </div>
+@endforeach
 
-@section('content')
-    <h2>Applicants for {{ $job->title }}</h2>
-
-    @foreach ($applications as $application)
-        <div>
-            <p><strong>Name:</strong> {{ $application->name }}</p>
-            <p><strong>Email:</strong> {{ $application->email }}</p>
-            <a href="{{ asset('storage/' . $application->cv) }}" download>Download CV</a>
-        </div>
-        <hr>
-    @endforeach
-@endsection
+</body>
+</html>

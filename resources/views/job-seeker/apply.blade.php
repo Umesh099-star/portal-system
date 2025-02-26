@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<!-- @extends('layouts.app')
 
 @section('content')
     <h2>Apply for {{ $job->title }}</h2>
@@ -16,4 +16,10 @@
         
         <button type="submit">Submit Application</button>
     </form>
-@endsection
+@endsection -->
+
+<form action="{{ route('apply.job', $job->id) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-primary">Apply</button>
+</form>
+

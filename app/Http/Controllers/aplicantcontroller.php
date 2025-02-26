@@ -5,43 +5,57 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Application;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class aplicantcontroller extends Controller
 {
-    public function showApplyForm($id)
+    public function apply(Request $request, $jobId)
     {
-        $job = Job::findOrFail($id);
-        return view('apply', compact('job'));
+        $job = Job::findOrFail($job_id);
+    $user = auth()->user();
+
+ // Fetch CV from users_profile table
+ $cv = $user->profile ? $user->profile->cv : null;
+
+//  // Debugging
+//  dd($user->toArray(), $job->toArray(), $cv, $request->all());
+
+ // Check if CV exists
+ if (!$cv) {
+     return redirect()->back()->with('error', 'Please upload your CV before applying.');
+ }
+
+ // Check if already applied
+ if (Application::where('user_id', $user->id)->where('job_id', $jobId)->exists()) {
+     return redirect()->back()->with('error', 'You have already applied for this job.');
+ }
+
+        // Save application
+    Application::create([
+        'user_id' => $user->id,
+        'job_id' => $jobId,
+        'company_id' => $job->company_id,
+        'cv' => $cv,
+        'cover_letter' => $request->cover_letter
+    ]);
+
+        return redirect()->back()->with('success', 'Application submitted successfully.');
     }
 
-    public function submitApplication(Request $request, $id)
+    public function userApplications()
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'cv' => 'required|mimes:pdf,doc,docx|max:2048',
-        ]);
+        $applications = Application::where('user_id', Auth::id())->with('job')->get();
+        return view('jobseeker.appliedjob', compact('applications'));
+    }
 
-        // Store CV in storage
-        $cvPath = $request->file('cv')->store('cvs', 'public');
+    public function companyApplications()
+    {
+        $applications = Application::whereHas('job', function ($query) {
+            $query->where('company_id', Auth::id());
+        })->with('user', 'job')->get();
 
-        // Save application data in the database
-        $application = new Application();
-        $application->job_id = $id;
-        $application->name = $request->name;
-        $application->email = $request->email;
-        $application->cv = $cvPath;
-        $application->save();
-
-        // Send email to the company
-        $job = Job::findOrFail($id);
-        Mail::send('emails.application', ['job' => $job, 'application' => $application], function ($message) use ($job) {
-            $message->to($job->company->email)
-                    ->subject('New Job Application');
-        });
-
-        // return redirect()->route('dashboard')->with('success', 'Application submitted successfully!');
+        return view('company.applicant', compact('applications'));
     }
 }
+

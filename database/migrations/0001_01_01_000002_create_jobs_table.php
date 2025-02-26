@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+       
+          
         
 
     Schema::create('jobs', function (Blueprint $table) {
+        $table->engine = 'InnoDB';
+           
         $table->id();
         $table->string('title');
         $table->string('category');
@@ -24,6 +28,10 @@ return new class extends Migration
         $table->text('description'); // Job Description
         $table->text('qualifications');
         $table->string('experience');
+        // adding the company id refernce as user
+       
+        // Admins can add job listing
+        // $table->foreignId('admin_id')->nullable()->constrained('admins')->onDelete('cascade'); 
         $table->timestamps();
  
 

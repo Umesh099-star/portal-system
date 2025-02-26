@@ -1,60 +1,120 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\userprofile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    // Show the profile creation form
+    public function create()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $profile = userprofile::where('user_id', Auth::id())->first();
+        return view('job-seeker.profile', compact('profile'));
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    // Store a new job seeker profile
+    public function store(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users_profile,email,' . Auth::id() . ',user_id',
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string|max:20',
+            'education' => 'nullable|string',
+            'cv' => 'nullable|mimes:pdf,doc,docx|max:2048',
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $cvPath = null;
+        if ($request->hasFile('cv')) {
+            $cvPath = $request->file('cv')->store('cvs', 'public');
         }
 
-        $request->user()->save();
+        userprofile::updateOrCreate(
+            ['user_id' => Auth::id()], 
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'education' => $request->education,
+                'cv' => $cvPath ?? userprofile::where('user_id', Auth::id())->value('cv'),
+            ]
+        );
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('job-seeker.profile')->with('success', 'Profile updated successfully.');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    // Show profile details
+    public function show()
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
+        $profile = userprofile::where('user_id', Auth::id())->first();
+
+        if (!$profile) {
+            return redirect()->route('job-seeker.profile')->with('error', 'Profile not found.');
+        }
+
+        return view('job-seeker.view', compact('profile'));
+    }
+
+    // Show edit form
+    public function edit()
+    {
+        $profile = userprofile::where('user_id', Auth::id())->first();
+
+        if (!$profile) {
+            return redirect()->route('job-seeker.profile')->with('error', 'Profile not found.');
+        }
+
+        return view('job-seeker.edit', compact('profile'));
+    }
+
+    // Update profile
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users_profile,email,' . Auth::id() . ',user_id',
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string|max:20',
+            'education' => 'nullable|string',
+            'cv' => 'nullable|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        $user = $request->user();
+        $profile = userprofile::where('user_id', Auth::id())->first();
 
-        Auth::logout();
+        if (!$profile) {
+            return redirect()->route('job-seeker.profile')->with('error', 'Profile not found.');
+        }
 
-        $user->delete();
+        if ($request->hasFile('cv')) {
+            $cvPath = $request->file('cv')->store('cvs', 'public');
+            $profile->cv = $cvPath;
+        }
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $profile->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'education' => $request->education,
+        ]);
 
-        return Redirect::to('/');
+        return redirect()->route('job-seeker.profile.view')->with('success', 'Profile updated successfully.');
+    }
+
+    // Delete profile
+    public function destroy()
+    {
+        $profile = userprofile::where('user_id', Auth::id())->first();
+
+        if (!$profile) {
+            return redirect()->route('job-seeker.profile')->with('error', 'Profile not found.');
+        }
+
+        $profile->delete();
+
+        return redirect()->route('job-seeker.profile')->with('success', 'Profile deleted successfully.');
     }
 }

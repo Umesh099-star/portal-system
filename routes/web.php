@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
@@ -8,12 +9,23 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\aplicantcontroller;
 
 use App\Http\Controllers\company\Auth\CompanyRegController;
+use App\Http\Controllers\Admin\listController;
 use App\Models\Company;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// homepage route 
+
+
+Route::get('/', [HomeController::class, 'index']);
+
+
+
+
+
 
 
 Route::get('/dashboard', function () {
@@ -73,6 +85,42 @@ Route::delete('/jobs/delete/{id}', [JobController::class, 'destroy'])->name('com
                    
 
 // // Admin Routes
+
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+// Group routes under 'admin' middleware
+
+
+// admin job listong uses this method to get data in dashboard
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [JobController::class, 'jobSeekerDashboard'])
+    ->name('dashboard');
+});
+
+Route::middleware(['auth:admin'])->group(function () {
+    // Admin job creation route
+    Route::get('/admin/jobs/create', [AdminController::class, 'create'])->name('admin.jobs.create');
+    // Other admin routes for job deletion, updating, etc.
+    Route::post('/admin/jobs/store', [listController::class, 'store'])->name('admin.jobs.store');
+});
+
+
+Route::middleware('auth:admin')->group(function() {
+    Route::get('/admin/view', [AdminController::class, 'viewUsers'])->name('admin.view');
+    Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+    Route::delete('/admin/delete-company/{id}', [AdminController::class, 'deleteCompany'])->name('admin.deleteCompany');
+    
+});
+
+// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/jobs/create', [AdminController::class, 'create'])->name('admin.jobs.create');
+//     Route::post('/admin/jobs/store', [listController::class, 'store'])->name('admin.jobs.store');
+// });
+
 // Route::prefix('admin')->group(function () {
 //     Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 //     Route::post('/login', [AdminController::class, 'login']);
@@ -82,17 +130,48 @@ Route::delete('/jobs/delete/{id}', [JobController::class, 'destroy'])->name('com
 //     })->middleware('auth:admin');
 // });
 
-Route::get('/apply/{id}', [aplicantcontroller::class, 'showApplyForm'])
-->name('job.apply');
+// Route::get('/apply/{id}', [aplicantcontroller::class, 'showApplyForm'])
+// ->name('job.apply');
 
-Route::post('/apply/{id}', [aplicantcontroller::class, 'submitApplication'])
-->name('job.submit');
+// Route::post('/apply/{id}', [aplicantcontroller::class, 'submitApplication'])
+// ->name('job.submit');
 
-Route::get('/company/job/{id}/applicants', [CompanyController::class, 'viewApplicants'])
-->name('company.viewApplicants');
+// Route::get('/company/job/{id}/applicants', [CompanyController::class, 'viewApplicants'])
+// ->name('company.viewApplicants');
 
 
 
 Route::get('/dashboard', [JobController::class, 'jobList'])
 ->name('dashboard');
 
+
+// user profile crud operations
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/job-seeker/profile', [ProfileController::class, 'create'])
+    ->name('job-seeker.profile');
+
+    Route::post('/job-seeker/profile', [ProfileController::class, 'store'])
+    ->name('job-seeker.profile.store');
+    Route::get('/job-seeker/profile/view', [ProfileController::class, 'show'])
+    ->name('job-seeker.profile.view');
+    Route::get('/job-seeker/profile/edit', [ProfileController::class, 'edit'])
+    ->name('job-seeker.profile.edit');
+    Route::post('/job-seeker/profile/update', [ProfileController::class, 'update'])
+    ->name('job-seeker.profile.update');
+    Route::post('/job-seeker/profile/delete', [ProfileController::class, 'destroy'])
+    ->name('job-seeker.profile.delete');
+});
+
+
+
+// apply for the job and view
+Route::middleware(['auth'])->group(function () {
+    Route::post('/apply/{jobId}', [aplicantcontroller::class, 'apply'])
+    ->name('apply.job');
+    Route::get('/my-applications', [aplicantcontroller::class, 'userApplications'])
+    ->name('user.applications');
+    Route::get('/company/applications', [aplicantcontroller::class, 'companyApplications'])
+    ->name('company.applications');
+});

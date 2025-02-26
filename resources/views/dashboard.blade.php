@@ -7,6 +7,7 @@
 </head>
 <body>
     <header>
+    <li><a href="{{ route('job-seeker.profile') }}">My Profile</a></li>
 
    
 <form method="POST" action="{{ route('logout') }}">
@@ -21,17 +22,18 @@
                 </header>
                 <h2>Available Jobs</h2>
 
-@if($jobs->isNotEmpty()) <!-- Check if there are any jobs -->
-    @foreach ($jobs as $job)
-        <div class="job-listing">
-            <h3>{{ $job->title }}</h3>
-            <p>{{ $job->description }}</p>
-            <p><strong>Location:</strong> {{ $job->location }}</p>
-            <a href="{{ route('job.apply', $job->id) }}" class="btn btn-primary">Apply Now</a>
-        </div>
-    @endforeach
-@else
-    <p>No jobs available at the moment.</p>
-@endif
+<!-- admins jobs listing data views from here -->
+@foreach($jobs as $job)
+    <div class="job-listing">
+        <h3>{{ $job->title }}</h3>
+        <p><strong>Category:</strong> {{ $job->category }}</p>
+        <p><strong>Posted By:</strong> {{ $job->added_by == 'admin' ? 'Admin' : 'Company' }}</p>
+        <p><strong>Company:</strong> {{ $job->company ? $job->company->name : 'N/A' }}</p>
+        <p><strong>Location:</strong> {{ $job->location }}</p>
+        <p><strong>Salary:</strong> {{ $job->salary }}</p>
+       
+    </div>
+@endforeach
+
 </body>
 </html>

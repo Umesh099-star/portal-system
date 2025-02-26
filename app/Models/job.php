@@ -10,6 +10,15 @@ class Job extends Model
     
     protected $fillable = [
         'title', 'category', 'job_type', 'vacancy', 'salary',
-        'location', 'description', 'qualifications', 'experience'
+        'location', 'description', 'qualifications', 'experience',
+        'reference_id', 'added_by','company_id'
     ];
+    public function company() {
+        return $this->belongsTo(User::class, 'company_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'reference_id');
+    }
 }
