@@ -1,0 +1,61 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc; /* Light background for the page */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Style */
+h2 {
+    text-align: center; /* Center align the title */
+    margin-top: 30px;
+    font-size: 2rem;
+    color: #333; /* Dark color for the title */
+}
+
+/* Table Container */
+table {
+    width: 80%; /* Make the table take 80% of the page width */
+    margin: 30px auto; /* Center the table horizontally with margin */
+    border-collapse: collapse; /* Remove extra space between cells */
+}
+
+/* Table Header Style */
+th {
+    background-color: #007bff; /* Blue background for table headers */
+    color: white; /* White text for contrast */
+    padding: 12px; /* Add padding for better readability */
+    text-align: left; /* Align text to the left */
+    font-size: 1.1rem; /* Slightly larger font size for better readability */
+}
+
+/* Table Row Style */
+td {
+    background-color: #ffffff; /* White background for table rows */
+    padding: 12px; /* Add padding for better readability */
+    text-align: left; /* Align text to the left */
+    font-size: 1rem; /* Standard font size for data */
+    border-bottom: 1px solid #ddd; /* Light grey border to separate rows */
+}
+
+/* Hover Effect for Rows */
+tr:hover {
+    background-color: #f1f1f1; /* Light grey background when hovering over rows */
+}
+
+/* Table Border Style */
+table, th, td {
+    border: 1px solid #ddd; /* Light grey border around the table */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    table {
+        width: 100%; /* Make the table take 100% width on smaller screens */
+    }
+    th, td {
+        padding: 8px; /* Reduce padding on smaller screens */
+        font-size: 0.9rem; /* Slightly smaller font on mobile */
+    }
+}

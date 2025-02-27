@@ -1,0 +1,107 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light background color */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the form */
+.container {
+    width: 80%; /* Limit the form width to 80% of the page */
+    margin: 30px auto; /* Center the form horizontally */
+    background-color: #fff; /* White background for the form */
+    padding: 30px; /* Add padding for a clean layout */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow around the form */
+    border-radius: 8px; /* Rounded corners for the form */
+}
+
+/* Header Style */
+h2 {
+    text-align: center; /* Center the header */
+    font-size: 2rem;
+    color: #333; /* Dark color for the title */
+    margin-bottom: 20px; /* Space below the header */
+}
+
+/* Success Message */
+.alert {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #28a745; /* Green background for success messages */
+    color: white;
+}
+
+/* Input Fields */
+input.form-control {
+    width: 100%; /* Make inputs take full width */
+    padding: 12px; /* Add padding inside the input fields */
+    margin-bottom: 15px; /* Space between the fields */
+    border: 1px solid #ccc; /* Light border for the inputs */
+    border-radius: 5px; /* Rounded corners for input fields */
+    font-size: 1rem; /* Standard font size */
+    box-sizing: border-box; /* Include padding and border in the element's total width/height */
+}
+
+/* Labels */
+label {
+    font-size: 1rem; /* Standard font size for labels */
+    color: #555; /* Slightly lighter color for labels */
+    display: block; /* Make labels appear above the inputs */
+    margin-bottom: 8px; /* Space between label and input */
+}
+
+/* Submit and View Buttons */
+button, a.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 5px; /* Rounded corners for the buttons */
+    text-decoration: none; /* Remove underline from links */
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button.btn-primary {
+    background-color: #007bff; /* Blue background for the save button */
+    color: white; /* White text */
+    border: none; /* Remove border */
+}
+
+a.btn-info {
+    background-color: #17a2b8; /* Light blue background for the view button */
+    color: white;
+    margin-left: 10px; /* Space between the two buttons */
+}
+
+/* Button Hover Effects */
+button:hover, a.btn:hover {
+    opacity: 0.8; /* Slightly reduce opacity when hovering */
+}
+
+/* File Upload Button */
+input[type="file"] {
+    padding: 10px;
+    background-color: #f9f9f9; /* Light background color for file input */
+    border: 1px solid #ddd; /* Border for file input */
+    border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* Make the form take 90% width on small screens */
+        padding: 20px; /* Adjust padding for mobile screens */
+    }
+    h2 {
+        font-size: 1.5rem; /* Adjust header font size on small screens */
+    }
+    input.form-control {
+        font-size: 0.9rem; /* Slightly reduce font size for inputs on mobile */
+    }
+    button, a.btn {
+        font-size: 0.9rem; /* Reduce button font size on mobile */
+    }
+}

@@ -1,47 +1,28 @@
+@extends('layouts.company.app')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Dashboard</title>
-   
+@section('content')
+<div class="container">
+
 
     <!-- <link rel="stylesheet" href="company.css"> -->
     <link rel="stylesheet" href="{{ asset('css/company.css') }}">
     
-</head>
-<body>
-    <h3>Company Dashboard</h3>
-    <!-- <li><a href="{{ route('company.jobs.create') }}">Create Job</a></li> -->
 
-    <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+    <!-- <h3>Company Dashboard</h3> -->
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
                 <!-- navbar-->
-                <header>
-                    <nav>
-                        <ui>
-                            <li><a href='#'>dashboard</a></li>
-                            <li><a href='#'>profile</a></li>
-                            <li><a href="{{ route('company.jobs.create') }}">Create Job</a></li>
-                            <li><a href="{{ route('company.jobs.save') }}">View</a></li>
-                            <li><a href='#'>setting</a></li>
-                        </ui>
-                    </nav>
-                </header>
+                
                 <!-- banner section-->
                 <section class ="banner">
                     <div class="banner-text">
                         <h2>keep connecting for job opportunities</h2>
                     </div>
                 </section>
+
+
+
+                
+
      <!-- Dashboard Cards -->
     <section class="dashboard">
         <h2>Dashboard</h2>
@@ -100,21 +81,16 @@
         <div class="box inactive">Featured Company <br> INACTIVE</div>
     </section>
 
-    <!-- Features -->
-    <section class="features">
-        <h2>Jobejee Features</h2>
-        <ul>
-            <li>Job Posting Package</li>
-            <li>Resume Database Access Package</li>
-            <li>Featured Company Package</li>
-        </ul>
-    </section>
+    
 
     <!-- Support -->
+    <footer>
     <section class="support">
         <h2>For Any Enquiry or Support</h2>
         <p>📞 Call us @ 01-4970596</p>
-        <p>📧 support@jobejee.com</p>
+        <p>📧 support@job.com</p>
     </section>
-</body>
-</html>
+    </footer>
+   
+    </div>
+@endsection

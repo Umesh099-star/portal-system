@@ -13,7 +13,11 @@ class CompanyController extends Controller
     
     public function index()
     {
-        return view('company.dashboard');
+         // Get the currently authenticated company
+         $company = Auth::user();
+
+         // Pass the company data to the dashboard view
+         return view('company.dashboard', compact('company'));
     }
 
     public function viewApplicants($job_id)
@@ -23,5 +27,6 @@ class CompanyController extends Controller
 
     return view('company.applicant', compact('job', 'applications'));
 }
+
 }
 

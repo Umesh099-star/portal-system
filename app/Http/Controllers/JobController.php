@@ -48,8 +48,16 @@ public function destroy($id)
 // to list the data in user Dashboard
 public function jobList()
 {
-    $jobs = Job::all(); // Fetch all jobs from database
+   
+    // Fetch all jobs from database
+    $jobs = Job::with('company')
+    ->orderByRaw("CASE WHEN added_by = 'admin' THEN 1 ELSE 2 END")
+    ->latest()
+    ->get();
+   
     return view('dashboard', compact('jobs'));
+
+
 }
 
 // stores all the info from company into db
@@ -101,9 +109,12 @@ public function store(Request $request)
     // admin listing control view in job-sekkers
     public function jobSeekerDashboard()
 {
-    $jobs = Job::orderByRaw("CASE WHEN admin_id IS NOT NULL THEN 1 ELSE 2 END")
-               ->orderBy('created_at', 'desc')
-               ->get();
+
+    $jobs = Job::with('company')
+    ->orderByRaw("CASE WHEN added_by = 'admin' THEN 1 ELSE 2 END")
+    ->latest()
+    ->get();
+   
 
     return view('dashboard', compact('jobs')); // Using default dashboard.blade.php
 }

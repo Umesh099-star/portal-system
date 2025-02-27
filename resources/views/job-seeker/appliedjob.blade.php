@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<head>
+    <link rel="stylesheet" href="{{ asset('css/jobseeker/applied.css')}}">
+</head>
+
     <h2>My Applied Jobs</h2>
     <table class="table">
         <tr>

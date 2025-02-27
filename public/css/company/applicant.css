@@ -1,0 +1,90 @@
+/* General container styling */
+.container {
+    width: 80%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light gray background */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Heading styling */
+.container h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Styling for the message when no applicants exist */
+.container p {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* Application list container */
+.application-list {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #007bff; /* Blue accent */
+}
+
+/* Job title */
+.application-list h3 {
+    font-size: 20px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+/* Labels inside application details */
+.application-list p {
+    font-size: 16px;
+    color: #444;
+    margin: 5px 0;
+}
+
+/* Make "strong" text stand out */
+.application-list p strong {
+    color: #333;
+}
+
+/* CV download link styling */
+.application-list a {
+    display: inline-block;
+    background-color: #28a745; /* Green color */
+    color: #ffffff;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.application-list a:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .application-list {
+        padding: 15px;
+    }
+
+    .application-list h3 {
+        font-size: 18px;
+    }
+
+    .application-list p {
+        font-size: 14px;
+    }
+}
+    

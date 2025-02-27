@@ -1,25 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>job-seeker</title>
-</head>
-<body>
-    <header>
-    <li><a href="{{ route('job-seeker.profile') }}">My Profile</a></li>
+@extends('layouts.app')
 
-   
-<form method="POST" action="{{ route('logout') }}">
-                    @csrf
+@section('content')
+<div class="container">
+<link rel="stylesheet" href="{{ asset('css/jobseeker/dashboard.css')}}">
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-                </header>
                 <h2>Available Jobs</h2>
 
 <!-- admins jobs listing data views from here -->
@@ -31,9 +15,28 @@
         <p><strong>Company:</strong> {{ $job->company ? $job->company->name : 'N/A' }}</p>
         <p><strong>Location:</strong> {{ $job->location }}</p>
         <p><strong>Salary:</strong> {{ $job->salary }}</p>
-       
+        <form action="{{ route('apply.job', ['jobId' => $job->id]) }}" method="POST">
+        @csrf
+        <button type="submit">Apply Now</button>
+    </form>
     </div>
 @endforeach
 
-</body>
-</html>
+
+
+
+
+
+
+
+
+    <!-- Support -->
+    <footer>
+    <section class="support">
+        <h2>For Any Enquiry or Support</h2>
+        <p>📞 Call us @ 01-4970596</p>
+        <p>📧 support@job.com</p>
+    </section>
+    </footer>
+</div>
+@endsection

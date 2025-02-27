@@ -92,7 +92,17 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('jobs'));
     }
 
-
+    public function jobSeekerDashboard()
+    {
+    
+        $jobs = Job::with('company')
+        ->orderByRaw("CASE WHEN added_by = 'admin' THEN 1 ELSE 2 END")
+        ->latest()
+        ->get();
+       
+    
+        return view('dashboard', compact('jobs')); // Using default dashboard.blade.php
+    }
 
 
 

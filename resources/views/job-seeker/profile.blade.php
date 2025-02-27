@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+<link rel="stylesheet" href="{{ asset('css/jobseeker/profile.css')}}">
     <h2>Job-Seeker Profile</h2>
     
     @if (session('success'))

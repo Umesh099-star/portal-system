@@ -21,4 +21,9 @@ class Job extends Model
     {
         return $this->belongsTo(Admin::class, 'reference_id');
     }
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'job_id');
+    }
+
 }

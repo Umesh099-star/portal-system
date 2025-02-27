@@ -1,9 +1,11 @@
 
 
-@extends('layouts.app')
+@extends('layouts.company.app')
 
 @section('content')
 <div class="container">
+<link rel="stylesheet" href="{{ asset('css/company/create.css') }}">
+
     <h2>Create Job</h2>
     <form action="{{ route('company.jobs.store') }}" method="POST">
         @csrf
@@ -36,8 +38,23 @@
         <label>Qualifications:</label>
         <textarea name="qualifications" required></textarea><br>
 
+        <div class="mb-4">
         <label>Experience:</label>
-        <input type="text" name="experience" required><br>
+                            <select name="experience" id="experience" class="form-control">
+                                <option value="">Select Experience</option>
+                                <option value="1" {{ (Request::get('experience') == 1) ? 'selected' : '' }}>1 Year</option>
+                                <option value="2" {{ (Request::get('experience') == 2) ? 'selected' : '' }}>2 Years</option>
+                                <option value="3" {{ (Request::get('experience') == 3) ? 'selected' : '' }}>3 Years</option>
+                                <option value="4" {{ (Request::get('experience') == 4) ? 'selected' : '' }}>4 Years</option>
+                                <option value="5" {{ (Request::get('experience') == 5) ? 'selected' : '' }}>5 Years</option>
+                                <option value="6" {{ (Request::get('experience') == 6) ? 'selected' : '' }}>6 Years</option>
+                                <option value="7" {{ (Request::get('experience') == 7) ? 'selected' : '' }}>7 Years</option>
+                                <option value="8" {{ (Request::get('experience') == 8) ? 'selected' : '' }}>8 Years</option>
+                                <option value="9" {{ (Request::get('experience') == 9) ? 'selected' : '' }}>9 Years</option>
+                                <option value="10" {{ (Request::get('experience') == 10) ? 'selected' : '' }}>10 Years</option>
+                                <option value="10_plus" {{ (Request::get('experience') == '10_plus') ? 'selected' : '' }}>10+ Years</option>
+                            </select>
+                        </div>
 
         <button type="submit">Create Job</button>
     </form>

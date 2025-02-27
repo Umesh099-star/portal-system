@@ -6,8 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\auth\AuthenticatedSessionController;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\aplicantcontroller;
-
+use App\Http\Controllers\Aplicantcontroller;
+use App\Http\Controllers\CompanySettingController;
+use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\company\Auth\CompanyRegController;
 use App\Http\Controllers\Admin\listController;
 use App\Models\Company;
@@ -76,6 +77,22 @@ Route::post('/jobs/update/{id}', [JobController::class, 'update'])->name('compan
 Route::delete('/jobs/delete/{id}', [JobController::class, 'destroy'])->name('company.jobs.delete');
 
                 });
+
+                    // company account deletion
+                  
+ Route::prefix('company')->middleware(['auth', 'company'])->group(function () {
+    Route::get('/setting', [CompanySettingController::class, 'index'])->name('company.setting');
+    Route::post('/setting/create', [CompanySettingController::class, 'create'])->name('company.setting.create');
+    Route::put('/setting/update', [CompanySettingController::class, 'update'])->name('company.setting.update');
+    Route::delete('/setting/delete', [CompanySettingController::class, 'delete'])->name('company.setting.delete');
+ 
+    // Create company profile (if not exists)
+Route::get('/profile', [CompanyProfileController::class, 'create'])->name('company.profile.create');
+Route::post('/profile/store', [CompanyProfileController::class, 'store'])->name('company.profile.store');
+});
+
+
+
 
 
 
@@ -168,10 +185,11 @@ Route::middleware(['auth'])->group(function () {
 
 // apply for the job and view
 Route::middleware(['auth'])->group(function () {
-    Route::post('/apply/{jobId}', [aplicantcontroller::class, 'apply'])
+    Route::post('/apply/{jobId}', [Aplicantcontroller::class, 'apply'])
     ->name('apply.job');
-    Route::get('/my-applications', [aplicantcontroller::class, 'userApplications'])
-    ->name('user.applications');
-    Route::get('/company/applications', [aplicantcontroller::class, 'companyApplications'])
-    ->name('company.applications');
+    Route::get('job-seeker/appliedjob', [Aplicantcontroller::class, 'userApplications'])
+    ->name('job-seeker.appliedjob');
+    Route::get('/company/applicant', [Aplicantcontroller::class, 'companyApplications'])
+    ->name('company.applicant');
 });
+

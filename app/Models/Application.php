@@ -12,13 +12,13 @@ class Application extends Model
     
     protected $fillable = ['user_id', 'job_id', 'cv', 'cover_letter'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function job()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(Job::class, 'job_id');
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

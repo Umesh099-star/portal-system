@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('css/jobseeker/dashboard.css')}}">
 </head>
-<body>   @if (Route::has('login'))
+<body>   <div class="topnav">
+    <a href="#home" class="active">home</a> 
+    <a href="#view" class="active">view</a> 
+    <a href="#admin" class="active">admin</a> 
+    <a href="#profile" class="split">profile</a>   
+    </div>
+  
+
+@if (Route::has('login'))
  <nav class="-mx-3 flex flex-1 justify-end">
      @auth
       <a href="{{ url('/dashboard') }}"
@@ -39,10 +48,14 @@
     <div class="job-listing">
         <h3>{{ $job->title }}</h3>
         <p><strong>Category:</strong> {{ $job->category }}</p>
-        <p><strong>Posted By:</strong> {{ $job->added_by == 'admin' ? 'Admin' : 'Company' }}</p>
+        <p><strong>Posted By:</strong> {{ $job->added_by ==='admin' ? 'Admin' : 'Company' }}</p>
         <p><strong>Company:</strong> {{ $job->company ? $job->company->name : 'N/A' }}</p>
         <p><strong>Location:</strong> {{ $job->location }}</p>
         <p><strong>Salary:</strong> {{ $job->salary }}</p>
+        <form action="{{ route('apply.job', ['jobId' => $job->id]) }}" method="POST">
+        @csrf
+        <button type="submit">Apply Now</button>
+    </form>
     </div>
 @endforeach
 
