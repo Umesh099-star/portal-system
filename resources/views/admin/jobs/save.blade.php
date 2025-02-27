@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>views</title>
-</head>
-<body>
-</form> 
+@extends('layouts.admin.app')
+
+@section('content')
+
 <div class="container">
     <h2>Job Listings</h2>
     @if (session('success'))
@@ -36,5 +31,5 @@
         <hr>
     @endforeach
 </div>
-</body>
-</html>
+
+@endsection
