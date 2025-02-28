@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\job;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\CompanyProfile;
 class CompanyController extends Controller
 {
     
@@ -27,6 +27,18 @@ class CompanyController extends Controller
 
     return view('company.applicant', compact('job', 'applications'));
 }
+public function about($companyId)
+{
+    $company = CompanyProfile::where('id', $companyId)->first();
+
+    if (!$company) {
+        return redirect()->back()->with('error', 'Company not found.');
+    }
+
+    return view('about', compact('company'));
+}
+
+
 
 }
 

@@ -31,8 +31,8 @@
        Log in
        </a>
 
-          @if (Route::has('register'))
-         <a href="{{ route('register') }}"
+          @if (Route::has('roleregister'))
+         <a href="{{ route('roleregister') }}"
   class="rounded-md px-3 py-2 text-black ring-1 ring-transparent 
   transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] 
   dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
@@ -48,14 +48,24 @@
     <div class="job-listing">
         <h3>{{ $job->title }}</h3>
         <p><strong>Category:</strong> {{ $job->category }}</p>
-        <p><strong>Posted By:</strong> {{ $job->added_by ==='admin' ? 'Admin' : 'Company' }}</p>
-        <p><strong>Company:</strong> {{ $job->company ? $job->company->name : 'N/A' }}</p>
+        <!-- <p><strong>Posted By:</strong> {{ $job->added_by ==='admin' ? 'Admin' : 'Company' }}</p> -->
+        <p><strong>Company Name:</strong> {{ $job->company ? $job->company->name : 'N/A' }}</p>
+        <p><strong>Job Title:</strong> {{ $job->title }}</p>
         <p><strong>Location:</strong> {{ $job->location }}</p>
+        <p><strong>Experience:</strong> {{ $job->experience }}</p>
+        <p><strong>Qualifications:</strong> {{ $job->qualifications }}</p>
         <p><strong>Salary:</strong> {{ $job->salary }}</p>
         <form action="{{ route('apply.job', ['jobId' => $job->id]) }}" method="POST">
         @csrf
         <button type="submit">Apply Now</button>
-    </form>
+ 
+    <!-- About Us Button -->
+    @if($job->company)
+            <a href="{{ route('company.about', ['companyId' => $job->company->id]) }}">
+                <button>About Us</button>
+            </a>
+        @endif
+        </form>
     </div>
 @endforeach
 

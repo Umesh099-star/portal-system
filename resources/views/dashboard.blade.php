@@ -18,6 +18,13 @@
         <form action="{{ route('apply.job', ['jobId' => $job->id]) }}" method="POST">
         @csrf
         <button type="submit">Apply Now</button>
+        <!-- About Us Button -->
+    @if($job->company)
+            <a href="{{ route('company.about', ['companyId' => $job->company->id]) }}">
+                <button>About Us</button>
+            </a>
+        @endif
+    
     </form>
     </div>
 @endforeach

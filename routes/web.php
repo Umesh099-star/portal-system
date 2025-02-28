@@ -24,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 
 
+//  Role Based registration
+Route::get('/roleregister', function () {
+    return view('auth.roleregister');
+})->name('roleregister');
 
 
 
@@ -192,4 +196,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/applicant', [Aplicantcontroller::class, 'companyApplications'])
     ->name('company.applicant');
 });
+
+
+Route::get('/company/about/{companyId}', [CompanyController::class, 'about'])->name('company.about');
 
