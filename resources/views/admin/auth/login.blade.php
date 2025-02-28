@@ -43,6 +43,14 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+        <div>
+ <!-- Register Button -->
+<x-primary-button class="ms-3"> 
+ <a href="{{ route('admin.auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                {{ __('Create Account') }}
+            </a>
+            </x-primary-button>
+        </div>
     </form>
     
 </x-guest-layout>

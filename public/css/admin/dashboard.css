@@ -1,0 +1,81 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    background: #fff;
+    padding: 20px;
+    margin: 30px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+/* Table Header */
+thead {
+    background: #007bff;
+    color: white;
+}
+
+th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Table Body */
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+}
+
+/* Alternating Row Colors */
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Hover Effect */
+tbody tr:hover {
+    background: #e6f7ff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}

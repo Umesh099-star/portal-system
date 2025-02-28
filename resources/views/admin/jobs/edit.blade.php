@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+<link rel="stylesheet" href="{{ asset('css/admin/edit.css') }}">
     <h2>Edit Job</h2>
     <form action="{{ route('company.jobs.update', $job->id) }}" method="POST">
         @csrf

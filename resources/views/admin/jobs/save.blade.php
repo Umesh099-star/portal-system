@@ -3,6 +3,8 @@
 @section('content')
 
 <div class="container">
+<link rel="stylesheet" href="{{ asset('css/company/view.css') }}">
+
     <h2>Job Listings</h2>
     @if (session('success'))
         <p>{{ session('success') }}</p>

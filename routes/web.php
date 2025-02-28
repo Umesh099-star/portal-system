@@ -127,6 +127,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/jobs/create', [AdminController::class, 'create'])->name('admin.jobs.create');
     // Other admin routes for job deletion, updating, etc.
     Route::post('/admin/jobs/store', [listController::class, 'store'])->name('admin.jobs.store');
+    Route::delete('/admin/jobs/{id}/delete', [AdminController::class, 'deleteJob'])->name('admin.jobs.delete');
 });
 
 

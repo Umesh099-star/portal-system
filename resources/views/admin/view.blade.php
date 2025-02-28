@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h2>Users & Companies</h2>
-
+    <!-- <h2>users</h2> -->
+<link rel="stylesheet" href="{{ asset('css/admin/view-users.css') }}">
     <!-- Display Job-Seekers -->
     <h3>Job-Seekers</h3>
     @if($users->isEmpty())

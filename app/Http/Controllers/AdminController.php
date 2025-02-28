@@ -104,7 +104,15 @@ class AdminController extends Controller
         return view('dashboard', compact('jobs')); // Using default dashboard.blade.php
     }
 
-
+    // delete job
+    public function deleteJob($id)
+    {
+        $job = Job::findOrFail($id);
+        $job->delete();
+    
+        return redirect()->back()->with('success', 'Job deleted successfully!');
+    }
+    
 
     public function logout(Request $request)
     {
