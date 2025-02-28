@@ -10,12 +10,15 @@
         <tr>
             <th>Job Title</th>
             <th>Company</th>
+            
+            
             <th>Applied On</th>
         </tr>
         @foreach($applications as $app)
         <tr>
             <td>{{ $app->job->title }}</td>
             <td>{{ $app->job->company->name }}</td>
+            
             <td>{{ $app->created_at->format('d M Y') }}</td>
         </tr>
         @endforeach
